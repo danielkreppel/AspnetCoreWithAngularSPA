@@ -1,28 +1,21 @@
-# HelloWorld
+#This is a sample project of a web application to register flight plans. Some terms and database tables are in portuguese to follow the terms from the requirement of the test.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.1.1.
+- Frontend in Angular 7 with Angular Material
+- Backend in Aspnet Core 2.2 Web Api
+- Authentication with JWT 
 
-## Development server
+- Backend Details:
+-- Project CrossCutting.IoC = Ioc Container configuration for the DI using the native services from dotnet core DI
+-- Project Common: ViewModels, Extensions and NLog as the log tool
+--- I used the AutoMapper for the mapping of the ViewModels and Domain Entities. I also created an extension class to make generic the logic to project  the contents of a list of domain entities to a list of the corresponding ViewModels.
+--- I used NLog to log errors from the application, using also a global filter for that.
+-- Project Data: Dapper ORM and repositories using Dapper resources (was used before, but now the application is set for Entity Framework)
+-- Project Domain: The domain entities from the application
+-- Project Model: Entity Framework ORM configuration and the domain entities set for EF usage
+-- Project Repository: Generic repository for EF entities with Unit of Work configuration
+-- Project Service: Services layer for the application (using the EF)
+-- Project Webapplication: The web application
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Database
+- I used the SQL Server 2016 Developer edition
+- There is a script available to create the database
