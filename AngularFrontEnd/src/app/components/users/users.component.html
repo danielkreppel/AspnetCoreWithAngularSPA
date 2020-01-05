@@ -1,0 +1,108 @@
+
+<form name="Formusers" >
+  <div class="container" fxLayout="row wrap" fxLayoutAlign="center center" >
+          <mat-card fxFlex="0 1 calc(100% - 0px)">
+              <mat-card-title>Usuários</mat-card-title>
+              <fieldset>
+                  <legend class="text-center">Cadastro</legend>
+                    <mat-form-field>
+                        <input matInput type="text" name="txtNome" placeholder="Nome" [(ngModel)]="user.name" [ngModelOptions]="{standalone: true}">
+                    </mat-form-field>
+                    
+                    <mat-form-field>
+                        <input matInput type="text" name="txtEmail" placeholder="E-mail" [(ngModel)]="user.email" [ngModelOptions]="{standalone: true}">
+                    </mat-form-field>
+
+                    <div [formGroup]="passGroup" >
+                        <div *ngIf="user.idUser != 0" >
+                            <mat-checkbox (change)="enablepasswords($event)">Alterar senha</mat-checkbox>
+                      </div>
+                      <mat-form-field>
+                        <input matInput type="password" placeholder="Senha" formControlName="password" (input)="onPasswordInput()">
+                        <mat-error *ngIf="password.hasError('required')">Senha requerida</mat-error>
+                        <mat-error *ngIf="password.hasError('minlength')">Senha precisa ter pelo menos {{minPw}} digitos</mat-error>
+                      </mat-form-field>
+                    
+                      <mat-form-field>
+                        <input matInput type="password" placeholder="Confirmar senha" formControlName="confirmPassword" (input)="onPasswordInput()">
+                        <mat-error *ngIf="confirmPassword.hasError('required')">Confirme sua senha</mat-error>
+                        <mat-error *ngIf="confirmPassword.invalid && !confirmPassword.hasError('required')">Senhas não conferem</mat-error>
+                      </mat-form-field>
+
+                      <mat-form-field fxFlex="0 1 calc(100% - 300px)">
+                          <mat-label>Perfis</mat-label>
+                          <mat-select [formControl]="selectedRoles" multiple>
+                            <mat-option *ngFor="let role of roles" [value]="role.idRole">{{role.description}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                    </div>                       
+                    
+                  <mat-card-actions fxLayoutAlign="center">
+                      <div *ngIf="user.idUser == 0">
+                          <button mat-raised-button color="primary" (click)="Save()"><i class="fa fa-save" style="padding-right:10px"></i>Adicionar user</button>
+                      </div>
+                      <div *ngIf="user.idUser != 0">
+                          <button mat-raised-button color="primary" (click)="Save()"><i class="fa fa-save" style="padding-right:10px"></i>Alterar user</button>
+                          <button mat-raised-button color="warn" (click)="CancelUpdate()"><i class="fa fa-close" style="padding-right:10px"></i>Cancelar Edição</button>
+                      </div>
+                  </mat-card-actions>
+                  
+              </fieldset>
+         </mat-card>
+      </div>
+
+  <hr />
+  
+  <div class="example-header">
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+    </div>
+    
+    <div class="example-container mat-elevation-z8">
+    
+      <mat-table [dataSource]="usersGrid" matSort>
+    
+        <ng-container matColumnDef="nome">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Nome </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+        </ng-container>
+    
+        <ng-container matColumnDef="email">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> E-mail </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.email}} </mat-cell>
+        </ng-container>
+    
+        <ng-container matColumnDef="ativo">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Ativo </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.active}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="perfis">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Perfis </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.rolesList}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="editar">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Editar </mat-header-cell>
+          <mat-cell *matCellDef="let row" [style.color]="row.color"> 
+              <button mat-button (click)="Update(row)"><mat-icon>edit</mat-icon></button>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="excluir">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Excluir </mat-header-cell>
+          <mat-cell *matCellDef="let row" [style.color]="row.color"> 
+              <button mat-button (click)="Remove(row)"><mat-icon>delete</mat-icon></button>
+          </mat-cell>
+        </ng-container>
+    
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;">
+        </mat-row>
+      </mat-table>
+    
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+</form>
+<toaster-container></toaster-container>

@@ -1,0 +1,24 @@
+<form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+    <div class="container" fxLayout="row wrap" fxLayoutAlign="center center" >
+        <mat-card fxFlex="0 1 calc(30% - 20px)" class="loginCard">
+            <mat-card-title>Login</mat-card-title>
+            <mat-card-subtitle *ngIf="invalidLogin" class="alert">Invalid username or password.</mat-card-subtitle>
+            <mat-card-content>
+                <mat-form-field >
+                    <input matInput type="email" id="username" name="username" ngModel placeholder="User Name" required autofocus>
+                </mat-form-field>
+                <br/>
+                <mat-form-field>
+                    <input matInput type="password" id="password" name="password" ngModel placeholder="Password" required>
+                </mat-form-field>
+                <br/>
+                <mat-card-actions fxLayoutAlign="center">
+                    <button mat-raised-button color="primary" type="submit">Sign in</button>
+                </mat-card-actions>
+                <mat-label>*Use <strong>"admin"</strong> user name  and <strong>"bypasspass"</strong> password to bypass authentication</mat-label>
+            </mat-card-content>
+        </mat-card>
+        
+    </div>
+    <toaster-container></toaster-container>
+</form>

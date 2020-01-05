@@ -1,0 +1,166 @@
+
+<form name="FormPlanoVoo">
+    <div class="container" fxLayout="row wrap" fxLayoutAlign="center center" >
+            <mat-card fxFlex="0 1 calc(100% - 0px)" class="loginCard">
+                <mat-card-title>Planos de Vôo</mat-card-title>
+                <fieldset>
+                    <legend class="text-center">Cadastro</legend>
+
+                    <mat-form-field>
+                        <input matInput type="text" name="txtNumero" maxlength="7"  placeholder="Número" [(ngModel)]="PlanoVoo.numeroVoo" style="text-transform:uppercase">
+                    </mat-form-field>
+                    
+                    <mat-form-field>
+                        <mat-select name="sltMatricula" [(ngModel)]="AeronaveSelecionada" placeholder="Matrícula Aeronave" (selectionChange)="matChange($event)">
+                            <mat-option *ngFor="let o of MatriculasAeronaves" [value]="o">{{o.matricula}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    
+                    <mat-form-field>
+                        <input matInput type="text" name="txtTipoAeronave" disabled placeholder="Tipo da Aeronave" [(ngModel)]="AeronaveSelecionada.tipoAeronave">
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-select name="sltOrigem" [(ngModel)]="AeroportoOrigemSelecionado" placeholder="Aeroporto Origem">
+                            <mat-option *ngFor="let a of Aeroportos" [value]="a">{{a.sigla}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-select name="sltDestino" [(ngModel)]="AeroportoDestinoSelecionado" placeholder="Aeroporto Destino">
+                            <mat-option *ngFor="let a of Aeroportos" [value]="a">{{a.sigla}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <input matInput [matDatepicker]="myDatepicker" [(ngModel)]="PlanoVoo.data" (dateChange)="dateChange()" name="data">
+                        <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+                        <mat-datepicker #myDatepicker></mat-datepicker>
+                    </mat-form-field>
+
+                    <mat-card-actions fxLayoutAlign="center">
+                        <div *ngIf="PlanoVoo.idPlanoVoo == 0">
+                            <button mat-raised-button color="primary" (click)="SalvarPlanoVoo()"><i class="fa fa-save" style="padding-right:10px"></i>Adicionar Plano de Vôo</button>
+                        </div>
+                        <div *ngIf="PlanoVoo.idPlanoVoo != 0">
+                            <button mat-raised-button color="primary" (click)="SalvarPlanoVoo()"><i class="fa fa-save" style="padding-right:10px"></i>Alterar Plano de Vôo</button>
+                            <button mat-raised-button color="warn" (click)="CancelUpdate()"><i class="fa fa-close" style="padding-right:10px"></i>Cancelar Edição</button>
+                        </div>
+                    </mat-card-actions>
+                    
+                </fieldset>
+           </mat-card>
+        </div>
+
+    <hr />
+    <!--<div class="container-fluid">
+        <section class="container">
+            <div class="container-page">
+                <fieldset>
+                    <legend class="text-center">Planos de Vôo</legend>
+                    <div class="col-lg-12 text-center">
+                        <label>Origem:</label>
+                        <input type="text" id="txtPesquisarOrigem" (keyup)="txtPesquisarOrigemDestinoChanged()" placeholder="Pesquisar Origem" />
+                        <label>Destino:</label>
+                        <input type="text" id="txtPesquisarDestino" (keyup)="txtPesquisarOrigemDestinoChanged()" placeholder="Pesquisar Destino" />
+                    </div>
+                    <hr/>
+                    <div class="col-lg-12">
+                        <table datatable class="table table-striped table-bordered table-sm row-border hover" id="tbPlanosVoos" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                            <thead class="GridView_HeaderStyle">
+                                <tr>
+                                    <th width="15%">Número</th>
+                                    <th width="15%">Matrícula</th>
+                                    <th width="15%">Tipo Aeronave</th>
+                                    <th width="15%">Data</th>
+                                    <th width="15%">Origem</th>
+                                    <th width="15%">Destino</th>
+                                    <th width="5%">Editar</th>
+                                    <th width="5%">Excluir</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let p of PlanosVooGrid" style="cursor:pointer">
+                                    <td width="15%">{{ p.numeroVoo }}</td>
+                                    <td width="15%">{{ p.matricula }}</td>
+                                    <td width="15%">{{ p.tipoAeronave }}</td>
+                                    <td width="20%">{{ p.dataFormatada }}</td>
+                                    <td width="15%">{{ p.origem }}</td>
+                                    <td width="15%">{{ p.destino }}</td>
+                                    <td><button class="btn btn-primary" (click)="EditarPlanoVoo(p)"><i class="fa fa-edit"></i></button></td>
+                                    <td><button class="btn btn-primary" (click)="ExcluirPlanoVoo(p)"><i class="fa fa-trash"></i></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </fieldset>
+            </div>
+        </section>
+    </div>-->
+    <div class="example-header">
+        <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+      </div>
+      
+      <div class="example-container mat-elevation-z8">
+      
+        <mat-table [dataSource]="PlanosVooGrid" matSort>
+      
+          <!-- ID Column -->
+          <ng-container matColumnDef="numero">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Número </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.numeroVoo}} </mat-cell>
+          </ng-container>
+      
+          <!-- Progress Column -->
+          <ng-container matColumnDef="matricula">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Matrícula </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.matricula}} </mat-cell>
+          </ng-container>
+      
+          <!-- Name Column -->
+          <ng-container matColumnDef="tipoAeronave">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Tipo Aeronave </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.tipoAeronave}} </mat-cell>
+          </ng-container>
+      
+          <!-- Color Column -->
+          <ng-container matColumnDef="dataFormatada">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Data </mat-header-cell>
+            <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.dataFormatada}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="origem">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Origem </mat-header-cell>
+            <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.origem}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="destino">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Destino </mat-header-cell>
+            <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.destino}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="editar">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Editar </mat-header-cell>
+            <mat-cell *matCellDef="let row" [style.color]="row.color"> 
+                <button mat-button (click)="EditarPlanoVoo(row)"><mat-icon>edit</mat-icon></button>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="excluir">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Excluir </mat-header-cell>
+            <mat-cell *matCellDef="let row" [style.color]="row.color"> 
+                <button mat-button (click)="ExcluirPlanoVoo(row)"><mat-icon>delete</mat-icon></button>
+            </mat-cell>
+          </ng-container>
+      
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;">
+          </mat-row>
+        </mat-table>
+      
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+      </div>
+</form>
+<toaster-container></toaster-container>

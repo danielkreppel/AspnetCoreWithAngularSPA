@@ -1,0 +1,10 @@
+C:\Users\Pc\Documents\Desenvolvimento\AspnetCoreWithAngular\webapplication\Repository\bin\Debug\netcoreapp2.2\Repository.deps.json
+C:\Users\Pc\Documents\Desenvolvimento\AspnetCoreWithAngular\webapplication\Repository\bin\Debug\netcoreapp2.2\Repository.dll
+C:\Users\Pc\Documents\Desenvolvimento\AspnetCoreWithAngular\webapplication\Repository\bin\Debug\netcoreapp2.2\Repository.pdb
+C:\Users\Pc\Documents\Desenvolvimento\AspnetCoreWithAngular\webapplication\Repository\obj\Debug\netcoreapp2.2\Repository.csproj.CoreCompileInputs.cache
+C:\Users\Pc\Documents\Desenvolvimento\AspnetCoreWithAngular\webapplication\Repository\obj\Debug\netcoreapp2.2\Repository.AssemblyInfoInputs.cache
+C:\Users\Pc\Documents\Desenvolvimento\AspnetCoreWithAngular\webapplication\Repository\obj\Debug\netcoreapp2.2\Repository.AssemblyInfo.cs
+C:\Users\Pc\Documents\Desenvolvimento\AspnetCoreWithAngular\webapplication\Repository\obj\Debug\netcoreapp2.2\Repository.dll
+C:\Users\Pc\Documents\Desenvolvimento\AspnetCoreWithAngular\webapplication\Repository\obj\Debug\netcoreapp2.2\Repository.pdb
+C:\Users\Pc\Documents\Desenvolvimento\AspnetCoreWithAngular\webapplication\Repository\bin\Debug\netcoreapp2.2\Repository.runtimeconfig.json
+C:\Users\Pc\Documents\Desenvolvimento\AspnetCoreWithAngular\webapplication\Repository\bin\Debug\netcoreapp2.2\Repository.runtimeconfig.dev.json
